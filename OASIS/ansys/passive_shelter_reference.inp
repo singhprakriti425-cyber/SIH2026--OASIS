@@ -1,0 +1,55 @@
+! ====================================================================
+! OASIS — ANSYS MAPDL REFERENCE HANDOFF
+! Rectangular thermal enclosure + airflow intent seed
+! Concept-stage file: refine geometry, openings, mesh and BCs before use.
+! ====================================================================
+/CLEAR
+/FILNAME,OASIS_reference,1
+/PREP7
+
+! --- Rectangular shelter dimensions ---
+*SET,LENGTH,7.0
+*SET,WIDTH,5.0
+*SET,HEIGHT,2.7
+*SET,ACH,1.2
+*SET,AIRFLOW_M3H,LENGTH*WIDTH*HEIGHT*ACH
+
+! --- Material: insulated enclosure ---
+ET,1,SOLID70
+MP,KXX,1,0.18
+MP,C,1,840
+MP,DENS,1,45
+
+! --- Main rectangular volume ---
+BLOCK,0,LENGTH,0,WIDTH,0,HEIGHT
+
+! --- Concept thermal-mass block ---
+ET,2,SOLID70
+MP,KXX,2,0.60
+MP,C,2,880
+MP,DENS,2,2100
+BLOCK,2.0,4.0,1.0,4.0,0.15,1.65
+
+ALLSEL,ALL
+ESIZE,0.30
+VMESH,ALL
+
+! --- Airflow intent for CFD/Fluent handoff ---
+! Create a separate air-domain volume around/inside the enclosure.
+! Low-level openings = inlet; opposite opening = cross-flow outlet.
+! Add a high-level outlet where buoyancy-assisted exhaust is desired.
+! AIRFLOW_M3H = conceptual equivalent air volume exchanged per hour.
+
+/SOLU
+ANTYPE,TRANS
+TRNOPT,FULL
+TIMINT,ON
+DELTIM,3600
+TUNIF,18
+
+! Apply external convection on exposed faces.
+! Apply solar heat flux to selected solar-facing opening surfaces.
+
+/POST1
+PLNSOL,TEMP
+FINISH

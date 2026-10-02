@@ -1,0 +1,331 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#071e35" />
+  <title>OASIS — Shelter Design Lab</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#top" aria-label="OASIS home"><span class="brand-mark">OA</span> OASIS <em>Shelter Lab</em></a>
+    <div class="top-status"><span class="signal" id="statusSignal"></span><span id="weatherStatus">Reference climate • Leh, Ladakh</span></div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div>
+        <p class="eyebrow">Climate-responsive design intelligence</p>
+        <h1>Design a shelter that works <span>with</span> its weather.</h1>
+        <p class="lede">Build a site-specific concept, compare materials, predict thermal behaviour, size self-sufficiency systems, inspect a simple ANSYS handoff, and export the complete model report.</p>
+        <div class="hero-actions">
+          <button class="button primary" data-go="site">Start / edit design</button>
+          <button class="button subtle" data-go="report">View current report</button>
+        </div>
+      </div>
+      <div class="hero-meta">
+        <span>DESIGN WORKFLOW</span>
+        <strong id="workflowProgress">01 / 07</strong>
+        <small>Site → Climate → Build → Materials → Thermal → Self-sufficiency → ANSYS → Report</small>
+      </div>
+    </section>
+
+    <nav class="module-nav" aria-label="Design modules">
+      <button class="module-tab active" data-module="site"><span>01</span>Site</button>
+      <button class="module-tab" data-module="climate"><span>02</span>Climate</button>
+      <button class="module-tab" data-module="build"><span>03</span>Build</button>
+      <button class="module-tab" data-module="materials"><span>04</span>Materials</button>
+      <button class="module-tab" data-module="thermal"><span>05</span>Thermal</button>
+      <button class="module-tab" data-module="self"><span>06</span>Self-sufficiency</button>
+      <button class="module-tab" data-module="ansys"><span>07</span>ANSYS</button>
+      <button class="module-tab" data-module="report"><span>08</span>Report</button>
+    </nav>
+
+    <section class="module active" id="module-site">
+      <div class="module-head">
+        <div><p class="eyebrow">01 — Site intelligence</p><h2>Start with the place, not the plan.</h2></div>
+        <p>Use device location for a live hourly climate series, or enter coordinates for any site. The design engine then adapts enclosure and ventilation behaviour to the site.</p>
+      </div>
+      <div class="site-band">
+        <div class="site-copy">
+          <div class="site-status-line"><span class="status-pill" id="siteSource">REFERENCE DATA</span><span class="mono" id="sitePlace">Leh, Ladakh</span></div>
+          <h3>Let the local climate drive the first design move.</h3>
+          <p id="locationHelp" class="help-box">Location works on <strong>localhost</strong> or HTTPS. When prompted, choose <strong>Allow</strong>; otherwise use manual coordinates.</p>
+        </div>
+        <div class="site-actions">
+          <button id="locateBtn" class="button primary">⌖ Use my location</button>
+          <button id="manualBtn" class="button subtle">Manual coordinates</button>
+          <div id="manualPanel" class="manual-panel hidden">
+            <label>Latitude<input id="latInput" type="number" step="0.01" value="34.15" /></label>
+            <label>Longitude<input id="lonInput" type="number" step="0.01" value="77.58" /></label>
+            <button id="loadManualBtn" class="button dark">Load climate</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="dashboard-strip">
+        <article><span>Ambient now</span><strong id="ambientValue">−8.0°</strong><small id="ambientDetail">Reference</small></article>
+        <article><span>Solar</span><strong id="solarValue">680 <i>W/m²</i></strong><small id="solarDetail">Clear-sky reference</small></article>
+        <article><span>Wind</span><strong id="windValue">12 <i>km/h</i></strong><small id="windDetail">Ventilation load</small></article>
+        <article><span>Elevation</span><strong id="elevationValue">3,500 <i>m</i></strong><small id="elevationDetail">High-altitude cold</small></article>
+      </div>
+
+      <div class="module-grid two">
+        <article class="card dark-card site-overview">
+          <div class="card-title"><span>Site summary</span><span class="tag" id="climateClass">HIGH-ALTITUDE COLD</span></div>
+          <div class="site-summary-grid">
+            <div><span>Coordinates</span><strong id="summaryCoords">34.150, 77.580</strong></div>
+            <div><span>Mean 24 h</span><strong id="summaryMean">−5.4 °C</strong></div>
+            <div><span>Min / Max</span><strong id="summaryRange">−16 / 10 °C</strong></div>
+            <div><span>Peak solar</span><strong id="summaryPeakSolar">740 W/m²</strong></div>
+          </div>
+          <p id="siteRecommendation" class="callout">A compact, sealed envelope is recommended for cold conditions. South glazing and internal thermal mass are prioritised.</p>
+        </article>
+
+        <article class="card">
+          <div class="card-title"><span>Adaptive design logic</span><span class="tag green">AUTO</span></div>
+          <div class="logic-grid">
+            <div><span>Cold site</span><strong>Sealed envelope</strong><small>Lower ACH, compact form, controlled south gain.</small></div>
+            <div><span>Hot summer</span><strong>Open + cross ventilated</strong><small>Higher ACH, shaded openings, breezy plan.</small></div>
+            <div><span>Temperate</span><strong>Seasonal balance</strong><small>Operable openings and flexible shading.</small></div>
+          </div>
+          <label class="switch-row"><input id="autoAdapt" type="checkbox" checked /><span>Auto-adapt design to site climate</span></label>
+        </article>
+      </div>
+
+      <div class="module-footer"><button class="button primary next-btn" data-go="climate">Continue to climate →</button></div>
+    </section>
+
+    <section class="module" id="module-climate">
+      <div class="module-head">
+        <div><p class="eyebrow">02 — Climate profile</p><h2>See the 24-hour boundary condition.</h2></div>
+        <p>The thermal model uses the selected 24-hour climate series. Solar, temperature and wind are exposed so the assumptions stay visible.</p>
+      </div>
+      <div class="module-grid two">
+        <article class="card chart-card">
+          <div class="card-title"><span>24-hour climate profile</span><span class="tag green" id="climateDataLabel">REFERENCE</span></div>
+          <svg id="climateChart" viewBox="0 0 900 350" preserveAspectRatio="none" role="img" aria-label="24 hour climate profile chart"></svg>
+          <div class="legend-row"><span><b class="legend-line outdoor-line"></b> Ambient</span><span><b class="legend-line solar-line"></b> Solar</span><span><b class="legend-line wind-line"></b> Wind</span></div>
+        </article>
+        <article class="card">
+          <div class="card-title"><span>Climate indicators</span><span class="tag amber">SITE DRIVEN</span></div>
+          <div class="indicator-grid">
+            <div><span>Mean temperature</span><strong id="meanTemp">−5.4 °C</strong></div>
+            <div><span>Daily solar input</span><strong id="dailySolar">7.1 kWh/m²</strong></div>
+            <div><span>Peak wind</span><strong id="peakWind">17 km/h</strong></div>
+            <div><span>Cloud cover</span><strong id="meanCloud">8 %</strong></div>
+          </div>
+          <div class="mini-note" id="climateGuidance">Use the climate to determine glazing, ventilation and envelope strategy.</div>
+          <div class="climate-badges" id="climateBadges"></div>
+        </article>
+      </div>
+      <div class="module-footer"><button class="button subtle prev-btn" data-go="site">← Back</button><button class="button primary next-btn" data-go="build">Continue to build →</button></div>
+    </section>
+
+    <section class="module" id="module-build">
+      <div class="module-head">
+        <div><p class="eyebrow">03 — Shelter builder</p><h2>Shape the plan around the climate.</h2></div>
+        <p>Dimensions, orientation, openings and ventilation directly change the thermal model, capacity, cost and ANSYS preview.</p>
+      </div>
+      <div class="module-grid two build-layout">
+        <article class="card">
+          <div class="card-title"><span>Geometry & envelope</span><span class="tag">USER DEFINED</span></div>
+          <form id="designForm">
+            <div class="input-grid three">
+              <label>Length <span>m</span><input name="length" type="number" min="3" max="20" step="0.5" value="7" /></label>
+              <label>Width <span>m</span><input name="width" type="number" min="3" max="20" step="0.5" value="5" /></label>
+              <label>Height <span>m</span><input name="height" type="number" min="2" max="5" step="0.1" value="2.6" /></label>
+              <label>Glazing <span>%</span><input name="glazing" type="number" min="5" max="65" step="1" value="32" /></label>
+              <label>Thermal mass <span>m³</span><input name="mass" type="number" min="0" max="14" step="0.5" value="4" /></label>
+              <label>Initial indoor <span>°C</span><input name="initial" type="number" min="5" max="30" step="1" value="18" /></label>
+            </div>
+            <div class="form-section-title">Envelope, orientation & ventilation</div>
+            <div class="input-grid two">
+              <label>Wall assembly<select name="wall"></select></label>
+              <label>Orientation <span>°</span><input name="orientation" type="number" min="0" max="359" step="1" value="180" /></label>
+              <label>Ventilation mode <select name="ventMode"><option value="sealed">Sealed / controlled</option><option value="balanced">Balanced / operable</option><option value="open">Open / cross-ventilated</option></select></label>
+              <label>Air changes <span>ACH</span><input name="ach" type="number" min="0.1" max="6" step="0.1" value="0.35" /></label>
+              <label>Shade / overhang <span>factor</span><input name="shade" type="number" min="0.45" max="1" step="0.05" value="0.85" /></label>
+            </div>
+            <label class="switch-row inline"><input name="autoShape" type="checkbox" checked /><span>Automatically update geometry response when climate changes</span></label>
+          </form>
+          <div class="quick-presets">
+            <button class="chip" data-preset="compact">Compact cold</button>
+            <button class="chip" data-preset="summer">Hot summer</button>
+            <button class="chip" data-preset="balanced">Balanced</button>
+          </div>
+        </article>
+
+        <article class="card blueprint-wrap">
+          <div class="card-title"><span>Responsive plan</span><span class="tag" id="planOrientation">SOUTH ↑</span></div>
+          <div class="plan-strategy" id="planStrategy">Climate-responsive layout</div>
+          <svg id="blueprint" viewBox="0 0 760 480" role="img" aria-label="Responsive shelter plan"></svg>
+          <div class="plan-legend"><span><b class="south-key"></b> Solar glazing</span><span><b class="mass-key"></b> Thermal mass</span><span><b class="entry-key"></b> Entry buffer</span><span><b class="vent-key"></b> Airflow</span></div>
+        </article>
+      </div>
+      <div class="adaptive-banner" id="adaptiveBanner"><strong>Climate adaptation:</strong> <span id="adaptiveText">Cold-site preset engaged — compact form, controlled openings and a lower ventilation rate.</span></div>
+      <div class="module-footer"><button class="button subtle prev-btn" data-go="climate">← Back</button><button class="button primary next-btn" data-go="materials">Continue to materials →</button></div>
+    </section>
+
+    <section class="module" id="module-materials">
+      <div class="module-head">
+        <div><p class="eyebrow">04 — Materials & assemblies</p><h2>Compare performance and cost together.</h2></div>
+        <p>Select an envelope package, inspect conductivity and heat-loss coefficient, then add your own material for a jury-ready comparison.</p>
+      </div>
+      <div class="module-grid two">
+        <article class="card">
+          <div class="card-title"><span>Envelope packages</span><span class="tag amber">PERFORMANCE + COST</span></div>
+          <div id="materialCards" class="material-cards"></div>
+          <div class="custom-material-box">
+            <div class="card-title"><span>Add material</span><span class="tag">CUSTOM</span></div>
+            <form id="materialForm" class="input-grid three">
+              <label>Name<input name="name" placeholder="Local fibre panel" required /></label>
+              <label>U-value <span>W/m²K</span><input name="u" type="number" step="0.01" min="0.05" value="0.30" /></label>
+              <label>Conductivity <span>W/mK</span><input name="k" type="number" step="0.001" min="0.01" value="0.08" /></label>
+              <label>Density <span>kg/m³</span><input name="rho" type="number" step="10" min="10" value="120" /></label>
+              <label>Specific heat <span>J/kgK</span><input name="cp" type="number" step="10" min="100" value="1200" /></label>
+              <label>Cost <span>₹/m²</span><input name="cost" type="number" step="50" min="100" value="1200" /></label>
+              <button class="button dark full" type="submit">+ Add material</button>
+            </form>
+          </div>
+        </article>
+        <article class="card material-detail-card">
+          <div class="card-title"><span>Selected assembly</span><span class="tag green" id="selectedMaterialTag">ACTIVE</span></div>
+          <div class="selected-material" id="selectedMaterialDetail"></div>
+          <div class="comparison-list" id="materialBars"></div>
+        </article>
+      </div>
+      <div class="module-footer"><button class="button subtle prev-btn" data-go="build">← Back</button><button class="button primary next-btn" data-go="thermal">Continue to thermal →</button></div>
+    </section>
+
+    <section class="module" id="module-thermal">
+      <div class="module-head">
+        <div><p class="eyebrow">05 — Thermal performance</p><h2>See heat, storage and comfort before construction.</h2></div>
+        <p>This preliminary one-zone RC model exposes the major energy paths. It is intended for concept comparison and ANSYS handoff, not final certification.</p>
+      </div>
+      <div class="metrics-grid five">
+        <article><span>Predicted min</span><strong id="minIndoor">12.4°</strong><small>Indoor air</small></article>
+        <article><span>Predicted max</span><strong id="maxIndoor">24.1°</strong><small>Indoor air</small></article>
+        <article><span>Solar captured</span><strong id="solarGain">11.8 <i>kWh</i></strong><small>24 h useful</small></article>
+        <article><span>Thermal capacity</span><strong id="thermalCapacity">— <i>MJ/K</i></strong><small>Envelope + mass</small></article>
+        <article><span>Heat-loss coefficient</span><strong id="heatLossCoeff">— <i>W/K</i></strong><small>UA + ventilation</small></article>
+      </div>
+      <div class="module-grid two thermal-grid">
+        <article class="card chart-card">
+          <div class="card-title"><span>Indoor vs outdoor</span><span class="tag green" id="dataSource">REFERENCE DATA</span></div>
+          <canvas id="temperatureChart" width="900" height="340" aria-label="24 hour indoor and outdoor temperature chart"></canvas>
+          <div class="legend-row"><span><b class="legend-line indoor-line"></b> Indoor</span><span><b class="legend-line outdoor-line"></b> Ambient</span><span><b class="legend-bar heat-positive"></b> Net heat gain</span><span><b class="legend-bar heat-negative"></b> Net heat loss</span></div>
+        </article>
+        <article class="card thermal-visual-card">
+          <div class="card-title"><span>Thermal colour field</span><span class="tag amber">CONCEPTUAL</span></div>
+          <div class="thermal-visual-shell"><canvas id="thermalField" width="700" height="420" aria-label="Conceptual thermal colour field of the shelter"></canvas><div class="thermal-scale"><span>COOL</span><div class="scale-gradient"></div><span>WARM</span></div></div>
+          <p id="thermalReadout" class="mini-note">The field shows a simple temperature gradient between exposed envelope, indoor zone and solar façade.</p>
+        </article>
+      </div>
+      <div class="assumption-grid">
+        <div><span>Model</span><strong>Single-zone RC</strong><small>Hourly step, transparent assumptions.</small></div>
+        <div><span>Solar gain</span><strong>I × glazing × SHGC × shade</strong><small>South façade is the primary solar collector.</small></div>
+        <div><span>Losses</span><strong>UA ΔT + ventilation</strong><small>Wind increases the conceptual ventilation loss factor.</small></div>
+        <div><span>Storage</span><strong>Air + thermal mass</strong><small>Mass buffers short-term temperature change.</small></div>
+      </div>
+      <div class="module-footer"><button class="button subtle prev-btn" data-go="materials">← Back</button><button class="button primary next-btn" data-go="self">Continue to self-sufficiency →</button></div>
+    </section>
+
+    <section class="module" id="module-self">
+      <div class="module-head">
+        <div><p class="eyebrow">06 — Self-sufficiency systems</p><h2>Turn the envelope into a complete operating concept.</h2></div>
+        <p>Size the core systems around the shelter load. The capacities shown are preliminary concept values and can be refined after annual climate analysis.</p>
+      </div>
+      <div class="system-grid four">
+        <article class="system-card"><span class="system-icon">PV</span><div><span>Solar power</span><strong id="pvCapacity">1.2 kWp</strong><small id="pvDetail">Pocket-friendly starter array</small></div><input id="pvSize" type="range" min="0" max="8" step="0.1" value="1.2" /></article>
+        <article class="system-card"><span class="system-icon">BAT</span><div><span>Battery</span><strong id="batteryCapacity">2.4 kWh</strong><small id="batteryDetail">Essential-load backup target</small></div><input id="batterySize" type="range" min="0" max="20" step="0.1" value="2.4" /></article>
+        <article class="system-card"><span class="system-icon">WTR</span><div><span>Water storage</span><strong id="waterCapacity">750 L</strong><small id="waterDetail">Compact rainwater reserve</small></div><input id="waterSize" type="range" min="200" max="6000" step="100" value="750" /></article>
+        <article class="system-card"><span class="system-icon">VENT</span><div><span>Ventilation</span><strong id="ventCapacity">0.35 ACH</strong><small id="ventDetail">Controlled air exchange</small></div><input id="ventSize" type="range" min="0.1" max="6" step="0.1" value="0.35" /></article>
+      </div>
+      <div class="module-grid three self-grid">
+        <article class="card"><div class="card-title"><span>Daily energy balance</span><span class="tag green">CONCEPT</span></div><div class="donut-wrap"><div class="donut" id="energyDonut"><div><strong id="energyAutonomy">82%</strong><small>estimated coverage</small></div></div></div><div class="energy-list"><div><span>Estimated demand</span><strong id="energyDemand">3.2 kWh/day</strong></div><div><span>PV generation</span><strong id="energyGeneration">5.8 kWh/day</strong></div><div><span>Battery backup</span><strong id="energyBackup">5.4 kWh</strong></div></div></article>
+        <article class="card"><div class="card-title"><span>Water capacity</span><span class="tag amber">STORAGE</span></div><div class="capacity-meter"><div class="meter-head"><span>Tank</span><strong id="waterFillLabel">1,500 L</strong></div><div class="meter-track"><div id="waterFill" class="meter-fill"></div></div><small id="waterDays">≈ 6.3 days at a conceptual 240 L/day system allowance.</small></div><div class="recommend-list"><div><span>Roof collection</span><strong id="roofCatchment">35 m² catchment</strong></div><div><span>Water reuse</span><strong>Greywater loop</strong></div><div><span>Filtration</span><strong>Replaceable cartridge</strong></div></div></article>
+        <article class="card"><div class="card-title"><span>Resilience scorecard</span><span class="tag green">LIVE</span></div><div id="resilienceList" class="resilience-list"></div></article>
+      </div>
+      <div class="adaptive-banner" id="selfExplain"><strong>How to read this module:</strong> PV is the planned solar array size, battery is stored electricity, water is tank capacity, and ACH means air changes per hour.</div>
+      <div class="adaptive-banner"><strong>System sizing note:</strong> current values are concept capacities. Use annual irradiance, water availability and appliance loads for final sizing.</div>
+      <div class="module-footer"><button class="button subtle prev-btn" data-go="thermal">← Back</button><button class="button primary next-btn" data-go="ansys">Continue to ANSYS →</button></div>
+    </section>
+
+    <section class="module" id="module-ansys">
+      <div class="module-head">
+        <div><p class="eyebrow">07 — ANSYS projection</p><h2>Keep the simulation handoff visual and useful.</h2></div>
+        <p>The projection below is intentionally simple: it communicates geometry, thermal zones and the main airflow direction without pretending to be CFD.</p>
+      </div>
+      <div class="ansys-shell">
+        <div class="ansys-toolbar"><div><span class="mono">OASIS MODEL VIEW</span><strong id="ansysModelTitle">Thermal + airflow projection</strong></div><div class="toolbar-actions"><button id="thermalToggle" class="chip active">Thermal colours</button><button id="airflowToggle" class="chip active">Airflow</button><button id="resetViewBtn" class="chip">Reset view</button></div></div>
+        <div class="ansys-canvas-wrap"><canvas id="shelter3d" width="1200" height="610" aria-label="Interactive conceptual 3D shelter model"></canvas><div class="ansys-overlay" id="airflowLegend"><span><i class="air-dot cool"></i>Cooler exterior / intake</span><span><i class="air-dot warm"></i>Warmer interior</span><span><i class="air-arrow"></i>Airflow direction</span></div></div>
+        <div class="ansys-readouts"><div><span>Geometry</span><strong id="modelDimensions">7.0 × 5.0 × 2.6 m</strong></div><div><span>Thermal capacity</span><strong id="ansysMass">— MJ/K</strong></div><div><span>Air exchange</span><strong id="ansysAch">0.35 ACH</strong><small id="ansysFlow">— m³/h</small></div><div><span>Simulation boundary</span><strong>24 h climate series</strong></div></div>
+      </div>
+      <div class="ansys-steps three">
+        <article><span>01</span><h3>Geometry seed</h3><p>Export dimensions, wall package, opening fraction, thermal mass and orientation as named parameters.</p></article>
+        <article><span>02</span><h3>Boundary conditions</h3><p>Apply hourly ambient, wind-derived convection and south-face solar heat flux to the final geometry.</p></article>
+        <article><span>03</span><h3>Read results</h3><p>Compare indoor temperature, surface heat flux, thermal storage and airflow behaviour after refinement.</p></article>
+      </div>
+      <div id="airflowExplainer" class="airflow-explainer"></div>
+      <div class="ansys-actions"><a class="button subtle" href="ansys/passive_shelter_reference.inp" download>↓ Download reference APDL</a><button id="downloadBtn" class="button dark">↓ Download current APDL</button><button id="copyModelBtn" class="button subtle">Copy model summary</button></div>
+      <div class="module-footer"><button class="button subtle prev-btn" data-go="self">← Back</button><button class="button primary next-btn" data-go="report">Build full report →</button></div>
+    </section>
+
+    <section class="module" id="module-report">
+      <div class="module-head">
+        <div><p class="eyebrow">08 — Project report</p><h2>One place for the complete model.</h2></div>
+        <p>Review the generated geometry, climate, thermal results, material choice, cost budget, self-sufficiency capacities and ANSYS assumptions before exporting.</p>
+      </div>
+      <div class="report-hero-card">
+        <div><p class="eyebrow">Current design</p><h3 id="reportTitle">OASIS climate-responsive shelter study</h3><p id="reportSubtitle">Leh, Ladakh • High-altitude cold • Reference climate</p></div>
+        <div class="report-score"><span>Model completion</span><strong id="designReadiness">8 / 8</strong><small id="readinessNote">Modules connected</small></div>
+      </div>
+      <div class="metrics-grid four report-metrics">
+        <article><span>Average budget</span><strong id="avgCost">₹ 3.85 L</strong><small>Concept estimate</small></article>
+        <article><span>Floor area</span><strong id="reportArea">35.0 m²</strong><small>Usable footprint</small></article>
+        <article><span>Thermal capacity</span><strong id="reportCapacity">4.8 MJ/K</strong><small>Effective storage</small></article>
+        <article><span>Self-sufficiency</span><strong id="reportAutonomy">—%</strong><small>Estimated energy coverage</small></article>
+      </div>
+      <div class="module-grid two">
+        <article class="card cost-card">
+          <div class="card-title"><span>Average cost budget</span><span class="tag amber">₹ INR</span></div>
+          <div id="costRows" class="cost-rows"></div>
+          <div class="cost-total"><span>Estimated project total</span><strong id="costTotal">₹ —</strong></div>
+          <div class="cost-range" id="costRange">Typical concept range: —</div>
+          <p class="mini-note">Indicative concept budget only. Local material, labour, transport and site conditions can shift the actual cost substantially.</p>
+        </article>
+        <article class="card report-summary-card">
+          <div class="card-title"><span>Report contents + design snapshot</span><span class="tag green">AUTO GENERATED</span></div>
+          <div class="report-checks"><div>✓ Site + climate</div><div>✓ Geometry + orientation</div><div>✓ Materials + performance</div><div>✓ Thermal forecast</div><div>✓ Self-sufficiency capacities</div><div>✓ Cost budget</div><div>✓ ANSYS parameters</div><div>✓ Airflow concept</div></div>
+          <div class="report-snapshot"><div><span>Climate response</span><strong id="reportStrategyShort">—</strong></div><div><span>Air exchange</span><strong id="reportVentSnapshot">—</strong></div><div><span>Solar + battery</span><strong id="reportEnergySnapshot">—</strong></div><div><span>Water reserve</span><strong id="reportWaterSnapshot">—</strong></div></div>
+          <p class="report-summary-note">The report uses the current inputs shown in the shelter builder. Change a value, and the design, budget and export update together.</p>
+          <div class="report-actions"><button id="viewReportBtn" class="button primary">View full report</button><button id="downloadReportBtn" class="button subtle">↓ Download report</button><button id="printReportBtn" class="button subtle">Print / Save PDF</button></div>
+        </article>
+      </div>
+      <div class="report-detail-grid">
+        <article class="card report-detail-card"><div class="card-title"><span>Design interpretation</span><span class="tag green">SITE + WEATHER</span></div><strong id="reportDesignStrategy">—</strong><p id="reportClimateSummary">—</p></article>
+        <article class="card report-detail-card"><div class="card-title"><span>Airflow meaning</span><span class="tag amber">CONCEPT FLOW</span></div><strong id="reportAirflowMeaning">—</strong><p>Blue paths in the ANSYS view show the intended air route. They are a readable design aid, not a CFD solution.</p></article>
+        <article class="card report-detail-card"><div class="card-title"><span>Self-sufficiency explanation</span><span class="tag">CAPACITIES</span></div><p id="reportSelfExplain">—</p></article>
+        <article class="card report-detail-card"><div class="card-title"><span>Budget interpretation</span><span class="tag amber">INR</span></div><strong id="reportBudgetRange">—</strong><p>Average is the midpoint concept estimate used for this model. The displayed range is a planning allowance, not a supplier quotation.</p></article>
+      </div>
+      <div class="module-footer"><button class="button subtle prev-btn" data-go="ansys">← Back</button><button class="button primary" id="recalculateBtn">↻ Recalculate model</button></div>
+    </section>
+
+    <footer>OASIS — CLIMATE-RESPONSIVE SHELTER DESIGN LAB <span>•</span> CONCEPT MODEL + ANSYS HANDOFF <span>•</span> 2026</footer>
+  </main>
+
+  <dialog id="reportDialog" class="report-dialog">
+    <div class="report-dialog-bar"><div><span class="mono">GENERATED MODEL REPORT</span><strong>OASIS Design Report</strong></div><button id="closeReportBtn" class="icon-button" aria-label="Close report">×</button></div>
+    <div id="reportContent" class="report-document"></div>
+    <div class="report-dialog-actions"><button id="downloadReportBtn2" class="button primary">↓ Download HTML</button><button id="printReportBtn2" class="button subtle">Print / Save PDF</button></div>
+  </dialog>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="app.js"></script>
+</body>
+</html>
